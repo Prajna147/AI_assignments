@@ -1,100 +1,90 @@
-# AQI Simple Reflex Agent
+# Sleep Score
 
-This project calculates the Air Quality Index (AQI) from pollutant values and uses a Simple Reflex Agent to determine the air quality.
+## About
 
-The agent uses the current pollutant readings and applies predefined CPCB rules to calculate the AQI.
+This is a simple Python program that calculates a sleep score based on the user's sleep information.
 
-## How it works
+The program takes a few inputs, gives points for each input, and calculates the final sleep score out of 100.
+
+## Inputs
+
+The program asks for:
+
+* Sleep duration in hours
+* Sleep quality from 1 to 10
+* Number of times the person woke up
+* Sleep consistency from 1 to 10
+
+## Scoring
+
+### Sleep Duration
+
+* 7–9 hours → 40 points
+* 6–7 or 9–10 hours → 30 points
+* 5–6 or more than 10 hours → 20 points
+* Less than 5 hours → 10 points
+
+### Sleep Quality
+
+* 9–10 → 30 points
+* 7–8 → 24 points
+* 5–6 → 18 points
+* 3–4 → 12 points
+* 1–2 → 6 points
+
+### Night Awakenings
+
+* 0–1 → 20 points
+* 2 → 15 points
+* 3 → 10 points
+* 4 → 5 points
+* More than 4 → 0 points
+
+### Sleep Consistency
+
+* 9–10 → 10 points
+* 7–8 → 8 points
+* 5–6 → 6 points
+* 3–4 → 4 points
+* 1–2 → 2 points
+
+## Sleep Result
+
+The final score gives one of these results:
+
+* 90–100 → Deep Sleep
+* 75–89 → Restful Sleep
+* 60–74 → Light Sleep
+* 40–59 → Disturbed Sleep
+* 0–39 → Poor Sleep
+
+## Example
 
 ```text
-Pollutant Data
-      ↓
-Calculate sub-indices
-      ↓
-Find highest sub-index
-      ↓
-AQI
-      ↓
-AQI Category
+How many hours did you sleep? 8
+Rate your sleep quality from 1 to 10: 9
+How many times did you wake up during the night? 1
+Rate your sleep consistency from 1 to 10: 8
+
+Sleep Score: 98 / 100
+Sleep Type: Deep Sleep
 ```
 
-The pollutants used are:
+## How to Run
 
-* PM2.5
-* PM10
-* CO
-* SO2
-* NO2
-* O3
-
-## AQI Categories
-
-| AQI     | Category     |
-| ------- | ------------ |
-| 0–50    | Good         |
-| 51–100  | Satisfactory |
-| 101–200 | Moderate     |
-| 201–300 | Poor         |
-| 301–400 | Very Poor    |
-| 401–500 | Severe       |
-
-## Dataset
-
-The project currently uses:
-
-```text
-air_quality_historical.csv
-```
-
-The CSV contains pollutant readings for Hyderabad.
-
-Each reading is passed to the agent, which calculates the AQI.
-
-## Running the project
-
-Install Pandas:
+Open the VS Code terminal and run:
 
 ```bash
-pip install pandas
+python sleep_score.py
 ```
 
-Run the program:
+Then enter the values asked by the program.
 
-```bash
-python aqi_agent.py
-```
-
-## Output
-
-The program displays:
+## Files
 
 ```text
-Date        : 2026-09-03
-AQI value   : 250
-Category    : Poor
-Worst pollutant: pm2_5
+sleep_agent/
+│
+├── sleep_score.py
+└── README.md
 ```
-
-It also shows the individual pollutant sub-indices.
-
-## Simple Reflex Agent
-
-The agent only uses the **current reading** to make its decision.
-
-For example:
-
-```text
-Current PM2.5
-      ↓
-AQI calculation
-      ↓
-AQI = 250
-      ↓
-Poor
-```
-
-It does not use previous readings or machine learning.
-
-## Future Work
-
-The CSV data can later be replaced with **real-time API data**, such as pollution and weather data, while keeping the same agent logic.
